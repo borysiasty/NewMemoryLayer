@@ -5,7 +5,7 @@
  Creates a memory layer
                               -------------------
         begin                : 2011-05-14
-        copyright            : (C) 2011 by Borys Jurgiel
+        copyright            : by Borys Jurgiel
         email                : info at borysjurgiel dot pl
  ***************************************************************************/
 
@@ -51,5 +51,3 @@ class NewMemoryLayer:
             geomType = dlg.geomType + '?crs=proj4:' + QgsProject.instance().readEntry("SpatialRefSys","/ProjectCRSProj4String")[0] #dodana linia
             memLay = QgsVectorLayer(geomType, dlg.ui.leName.text(), 'memory') #zmieniona linia
             QgsMapLayerRegistry.instance().addMapLayer(memLay)            
-            memLay.setCoordinateSystem()
-            

@@ -31,7 +31,7 @@ def name():
 def description():
     return "Creates an empty memory layer"
 def version():
-    return "Version 0.2"
+    return "Version 0.2.1"
 def icon():
     return "mActionNewVectorLayer.png"
 def qgisMinimumVersion():
