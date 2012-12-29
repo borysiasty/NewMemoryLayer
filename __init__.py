@@ -19,9 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 
- This plugin was written during Qgis Programming Workshop in Wrocław 
+ This plugin was written during Qgis Programming Workshop in Wrocław
  2011-05-13 and in a train from Wrocław to Warsaw 2011-05-14
- 
+
  Patch for using project crs by Piotr Pociask 2011-08-22
 
 """
@@ -32,10 +32,14 @@ def description():
     return "Creates an empty memory layer"
 def version():
     return "Version 0.2.2"
-def icon():
-    return "mActionNewVectorLayer.png"
 def qgisMinimumVersion():
     return "1.6"
+def icon():
+    return "mActionNewVectorLayer.png"
+def authorName():
+    return 'Borys Jurgiel'
+def homepage():
+    return 'http://hub.qgis.org/projects/newmemorylayer'
 def classFactory(iface):
     from newmemorylayer import NewMemoryLayer
     return NewMemoryLayer(iface)
