@@ -36,7 +36,7 @@ class NewMemoryLayer:
         self.iface.addToolBarIcon(self.action)
         self.iface.addPluginToMenu("New Memory Layer", self.action)
         #self.iface.layerMenu().findChild(QMenu, 'menuNew').addAction(self.action)
-        
+
     def unload(self):
         self.iface.unregisterMainWindowAction(self.action)
         self.iface.removeToolBarIcon(self.action)
@@ -50,4 +50,7 @@ class NewMemoryLayer:
         if result == 1:
             geomType = dlg.geomType + '?crs=proj4:' + QgsProject.instance().readEntry("SpatialRefSys","/ProjectCRSProj4String")[0] #dodana linia
             memLay = QgsVectorLayer(geomType, dlg.ui.leName.text(), 'memory') #zmieniona linia
-            QgsMapLayerRegistry.instance().addMapLayer(memLay)            
+            if hasattr( QgsMapLayerRegistry.instance(), "addMapLayers" ):
+                QgsMapLayerRegistry.instance().addMapLayers([memLay])
+            else:
+                QgsMapLayerRegistry.instance().addMapLayer(memLay)  # API <= 1.7 (1.8)
