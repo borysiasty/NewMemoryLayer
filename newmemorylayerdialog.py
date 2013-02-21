@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  NewMemoryLayerDialog
@@ -32,15 +33,15 @@ class NewMemoryLayerDialog(QtGui.QDialog):
         self.connect(self.ui.butPoint, QtCore.SIGNAL("released()"), self.runPoint)
         self.connect(self.ui.butLine, QtCore.SIGNAL("released()"), self.runLine)
         self.connect(self.ui.butPoly, QtCore.SIGNAL("released()"), self.runPoly)
-        
+
     def runPoint(self):
         self.geomType = 'Point'
         self.accept()
-        
+
     def runLine(self):
         self.geomType = 'LineString'
         self.accept()
-     
+
     def runPoly(self):
         self.geomType = 'Polygon'
         self.accept()

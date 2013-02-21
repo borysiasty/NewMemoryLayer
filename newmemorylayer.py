@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  NewMemoryLayer
@@ -23,14 +24,26 @@ from PyQt4.QtGui import *
 from qgis.core import *
 import resources
 from newmemorylayerdialog import NewMemoryLayerDialog
+import os
 
 class NewMemoryLayer:
 
     def __init__(self, iface):
         self.iface = iface
+        #i18n
+        pluginPath = QFileInfo(os.path.realpath(__file__)).path()
+        localeName = QLocale.system().name()
+        if QFileInfo(pluginPath).exists():
+            self.localePath = pluginPath+"/i18n/newmemorylayer_" + localeName + ".qm"
+        if QFileInfo(self.localePath).exists():
+            self.translator = QTranslator()
+            self.translator.load(self.localePath)
+            if qVersion() > '4.3.3':
+                QCoreApplication.installTranslator(self.translator)
+
 
     def initGui(self):
-        self.action = QAction(QIcon(":/plugins/newmemorylayer/mActionNewVectorLayer.png"), "New Memory Layer", self.iface.mainWindow())
+        self.action = QAction(QIcon(":/plugins/newmemorylayer/mActionNewVectorLayer.png"), QCoreApplication.translate("NewMemoryLayer","New Memory Layer"), self.iface.mainWindow())
         QObject.connect(self.action, SIGNAL("triggered()"), self.run)
         self.iface.registerMainWindowAction(self.action, "Ctrl+M")
         try:
