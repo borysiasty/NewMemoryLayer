@@ -33,15 +33,27 @@ class NewMemoryLayer:
         self.action = QAction(QIcon(":/plugins/newmemorylayer/mActionNewVectorLayer.png"), "New Memory Layer", self.iface.mainWindow())
         QObject.connect(self.action, SIGNAL("triggered()"), self.run)
         self.iface.registerMainWindowAction(self.action, "Ctrl+M")
-        self.iface.addToolBarIcon(self.action)
-        self.iface.addPluginToMenu("New Memory Layer", self.action)
-        #self.iface.layerMenu().findChild(QMenu, 'menuNew').addAction(self.action)
+        try:
+            self.iface.layerToolBar().addAction(self.action)
+        except:
+            self.iface.addToolBarIcon(self.action)
+        try:
+            self.iface.newLayerMenu().addAction(self.action)
+        except:
+            self.iface.addPluginToMenu("New Memory Layer", self.action)
+
 
     def unload(self):
         self.iface.unregisterMainWindowAction(self.action)
-        self.iface.removeToolBarIcon(self.action)
-        self.iface.removePluginMenu("New Memory Layer",self.action)
-        #self.iface.layerMenu().findChild(QMenu, 'menuNew').removeAction(self.action)
+        try:
+            self.iface.layerToolBar().removeAction(self.action)
+        except:
+            self.iface.removeToolBarIcon(self.action)
+        try:
+            self.iface.newLayerMenu().removeAction(self.action)
+        except:
+            self.iface.removePluginMenu("New Memory Layer",self.action)
+
 
     def run(self):
         dlg = NewMemoryLayerDialog()
