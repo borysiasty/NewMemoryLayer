@@ -43,29 +43,33 @@ class NewMemoryLayer:
 
 
     def initGui(self):
-        self.action = QAction(QIcon(":/plugins/newmemorylayer/mActionNewVectorLayer.png"), QCoreApplication.translate("NewMemoryLayer","New Memory Layer"), self.iface.mainWindow())
-        QObject.connect(self.action, SIGNAL("triggered()"), self.run)
+        self.action = QAction(QIcon(":/plugins/newmemorylayer/layer-memory-create.png"), QCoreApplication.translate("NewMemoryLayer","New Memory Layer..."), self.iface.mainWindow())
+        self.action2 = QAction(QIcon(":/plugins/newmemorylayer/layer-memory-create.png"), QCoreApplication.translate("NewMemoryLayer","New Memory Layer"), self.iface.mainWindow())
         self.iface.registerMainWindowAction(self.action, "Ctrl+M")
+        QObject.connect(self.action, SIGNAL("triggered()"), self.run)
+        QObject.connect(self.action2, SIGNAL("triggered()"), self.run)
         try:
-            self.iface.layerToolBar().addAction(self.action)
-        except:
-            self.iface.addToolBarIcon(self.action)
-        try:
-            self.iface.newLayerMenu().addAction(self.action)
+            self.iface.newLayerMenu().addAction(self.action)  # API >= 1.9
         except:
             self.iface.addPluginToMenu("New Memory Layer", self.action)
+        try:
+            self.iface.layerToolBar().addAction(self.action2)  # API >= 1.8
+        except:
+            self.iface.addToolBarIcon(self.action2)
 
 
     def unload(self):
+        QObject.disconnect(self.action, SIGNAL("triggered()"), self.run)
+        QObject.disconnect(self.action2, SIGNAL("triggered()"), self.run)
         self.iface.unregisterMainWindowAction(self.action)
         try:
-            self.iface.layerToolBar().removeAction(self.action)
-        except:
-            self.iface.removeToolBarIcon(self.action)
-        try:
-            self.iface.newLayerMenu().removeAction(self.action)
+            self.iface.newLayerMenu().removeAction(self.action)  # API >= 1.9
         except:
             self.iface.removePluginMenu("New Memory Layer",self.action)
+        try:
+            self.iface.layerToolBar().removeAction(self.action2)  # API >= 1.8
+        except:
+            self.iface.removeToolBarIcon(self.action2)
 
 
     def run(self):
@@ -76,6 +80,6 @@ class NewMemoryLayer:
             geomType = dlg.geomType + '?crs=proj4:' + QgsProject.instance().readEntry("SpatialRefSys","/ProjectCRSProj4String")[0] #dodana linia
             memLay = QgsVectorLayer(geomType, dlg.ui.leName.text(), 'memory') #zmieniona linia
             if hasattr( QgsMapLayerRegistry.instance(), "addMapLayers" ):
-                QgsMapLayerRegistry.instance().addMapLayers([memLay])
+                QgsMapLayerRegistry.instance().addMapLayers([memLay])  # API >= 1.9
             else:
-                QgsMapLayerRegistry.instance().addMapLayer(memLay)  # API <= 1.7 (1.8)
+                QgsMapLayerRegistry.instance().addMapLayer(memLay)

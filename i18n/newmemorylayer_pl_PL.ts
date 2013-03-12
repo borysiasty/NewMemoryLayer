@@ -34,9 +34,14 @@
         <translation>powierzchniowa</translation>
     </message>
     <message>
-        <location filename="../newmemorylayer.py" line="46"/>
+        <location filename="../newmemorylayer.py" line="47"/>
         <source>New Memory Layer</source>
         <translation>Nowa warstwa w pamięci</translation>
+    </message>
+    <message>
+        <location filename="../newmemorylayer.py" line="46"/>
+        <source>New Memory Layer...</source>
+        <translation>Nowa warstwa w pamięci...</translation>
     </message>
 </context>
 </TS>

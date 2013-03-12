@@ -31,11 +31,11 @@ def name():
 def description():
     return "Creates an empty memory layer"
 def version():
-    return "Version 0.2.3"
+    return "Version 0.3"
 def qgisMinimumVersion():
     return "1.6"
 def icon():
-    return "mActionNewVectorLayer.png"
+    return "layer-memory-create.png"
 def authorName():
     return 'Borys Jurgiel'
 def author():

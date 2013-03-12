@@ -1,5 +1,5 @@
 <RCC>
     <qresource prefix="/plugins/newmemorylayer" >
-        <file>mActionNewVectorLayer.png</file>
+        <file>layer-memory-create.png</file>
     </qresource>
 </RCC>

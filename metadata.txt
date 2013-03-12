@@ -12,7 +12,7 @@
 name=New Memory Layer
 qgisMinimumVersion=1.6
 description=Create an empty memory layer
-version=0.2.3
+version=0.3
 
 # Optional items:
 
@@ -24,7 +24,7 @@ tags=memory layer, vector, new
 homepage=http://hub.qgis.org/projects/newmemorylayer
 tracker=http://hub.qgis.org/projects/newmemorylayer/issues
 #repository=http://hub.qgis.org/projects/newmemorylayer/repository
-icon=mActionNewVectorLayer.png
+icon=layer-memory-create.png
 experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version

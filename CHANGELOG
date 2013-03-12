@@ -1,8 +1,15 @@
+0.3 (2013-03-12)
+- Translation enabled, Polish translation included
+- New icon
+- Now in Layer toolbar (only in QGIS>=1.8)
+- Now in New Layer submenu (only in QGIS >= 1.9)
+
+
 0.2.3 (2012-12-29)
-Fix for API 1.9 
+Fix for API 1.9
 
 
-0.2.2 
+0.2.2
 Sorry, I forgot :)
 
 
