@@ -26,24 +26,6 @@
 
 """
 
-def name():
-    return "New Memory Layer"
-def description():
-    return "Creates an empty memory layer"
-def version():
-    return "Version 0.3"
-def qgisMinimumVersion():
-    return "1.6"
-def icon():
-    return "layer-memory-create.png"
-def authorName():
-    return 'Borys Jurgiel'
-def author():
-    return 'Borys Jurgiel'
-def email():
-    return 'qgis at borysjurgiel dot pl'
-def homepage():
-    return 'http://hub.qgis.org/projects/newmemorylayer'
 def classFactory(iface):
     from newmemorylayer import NewMemoryLayer
     return NewMemoryLayer(iface)
