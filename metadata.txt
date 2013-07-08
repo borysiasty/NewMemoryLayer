@@ -30,7 +30,8 @@ category=Layer
 
 homepage=http://hub.qgis.org/projects/newmemorylayer
 tracker=http://hub.qgis.org/projects/newmemorylayer/issues
-#repository=http://hub.qgis.org/projects/newmemorylayer/repository
+repository=http://github.com/borysiasty/NewMemoryLayer
+
 icon=layer-memory-create.png
 experimental=False
 
