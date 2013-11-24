@@ -12,12 +12,14 @@
 name=New Memory Layer
 #name[pl]=Nowa warstwa w pamięci
 #name[it]=Nuovo Layer Temporaneo
+#name[fr]=Nouvelle couche temporaire
 
 description=Create an empty memory layer
 description[pl]=Tworzy nową warstwę w pamięci
 description[it]=Crea Layer temporaneo vuoto
+description[fr]=Créez une couche temporaire vide
 
-version=0.4.1
+version=0.4.2
 qgisMinimumVersion=2.0
 
 # Optional items:

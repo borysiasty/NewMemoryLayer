@@ -1,11 +1,17 @@
+0.4.2 (2013-11-24)
+French translation by Pierre-Luc Auclair
+
 0.4.1 (2013-07-06)
 Localized description in metadata.txt
 
 0.4 (2013-06-10)
 Make this version only compatible with QGIS 2.0 API
 
+0.3.4 (2013-11-24)
+French translation by Pierre-Luc Auclair (for 0.3.x series)
+
 0.3.3 (2013-06-10)
-Make this version only compatible with QGIS 1.0 API
+Make the 0.3.x series only compatible with QGIS 1.0 API
 
 0.3 (2013-03-12)
 - Translation enabled, Polish translation included
