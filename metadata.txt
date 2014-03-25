@@ -1,16 +1,6 @@
-# This file contains metadata for your plugin. Beginning
-# with version 1.8 this is the preferred way to supply information about a
-# plugin. The current method of embedding metadata in __init__.py will
-# be supported until version 2.0
-
-# This file should be included when you package your plugin.
-
-# Mandatory items:
-
-
 [general]
 name=New Memory Layer
-#name[pl]=Nowa warstwa w pamięci
+#name[pl]=Nowa warstwa w pamięci    #don't translate the name
 #name[it]=Nuovo Layer Temporaneo
 #name[fr]=Nouvelle couche temporaire
 
@@ -19,10 +9,21 @@ description[pl]=Tworzy nową warstwę w pamięci
 description[it]=Crea Layer temporaneo vuoto
 description[fr]=Créez une couche temporaire vide
 
-version=0.4.2
-qgisMinimumVersion=2.0
+about=The plugin creates a new layer in memory just in two simple clicks.
+      All you need to do is to call the plugin, choose geometry type
+      and optionally a name for the new layer. No attributes are created
+      in order to make it as easy as possible. You can find the plugin button
+      in the Layers toolbar as well as in the Layer->New Layer menu.
+      You can also use a keyboard shortcut (Ctrl-M by default).
+about[pl]=Wtyczka tworzy w pamięci nową warstwę w dwóch prostych kliknięciach.
+      Wystarczy wywołać wtyczkę, wybrać typ geometrii i ewentualnie nazwę
+      dla tworzonej warstwy. Wtyczka dla uproszczenia nie tworzy żadnych
+      atrybutów, można je później dodać w tabeli atrybutów. Przycisk wtyczki
+      znajduje się na pasku narzędzi Warstwa oraz w menu Warstwa -> Utwórz nową
+      warstwę. Można także użyć skrótu klawiszowego (domyślnie Ctrl-M).
 
-# Optional items:
+version=0.4.3
+qgisMinimumVersion=2.0
 
 # changelog=
 
