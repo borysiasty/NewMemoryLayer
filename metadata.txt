@@ -31,9 +31,9 @@ qgisMinimumVersion=2.0
 tags=memory layer, vector, new
 category=Layer
 
-homepage=http://hub.qgis.org/projects/newmemorylayer
-tracker=http://hub.qgis.org/projects/newmemorylayer/issues
-repository=http://github.com/borysiasty/NewMemoryLayer
+homepage=https://github.com/borysiasty/NewMemoryLayer
+tracker=https://github.com/borysiasty/NewMemoryLayer/issues
+repository=https://github.com/borysiasty/NewMemoryLayer
 
 icon=layer-memory-create.png
 experimental=False
