@@ -19,35 +19,43 @@
  *                                                                         *
  ***************************************************************************/
 """
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from qgis.PyQt.QtCore import *
+from qgis.PyQt.QtGui import *
 from qgis.core import *
-import resources
-from newmemorylayerdialog import NewMemoryLayerDialog
+
+from .newmemorylayerdialog import NewMemoryLayerDialog
 import os
+
 
 class NewMemoryLayer:
 
     def __init__(self, iface):
         self.iface = iface
-        #i18n
+        # i18n
         pluginPath = QFileInfo(os.path.realpath(__file__)).path()
         localeName = QLocale.system().name()
         if QFileInfo(pluginPath).exists():
-            self.localePath = pluginPath+"/i18n/newmemorylayer_" + localeName + ".qm"
+            self.localePath = pluginPath + "/i18n/newmemorylayer_" + localeName + ".qm"
         if QFileInfo(self.localePath).exists():
             self.translator = QTranslator()
             self.translator.load(self.localePath)
-            if qVersion() > '4.3.3':
+            if qVersion() > "4.3.3":
                 QCoreApplication.installTranslator(self.translator)
 
-
     def initGui(self):
-        self.action = QAction(QIcon(":/plugins/newmemorylayer/layer-memory-create.png"), QCoreApplication.translate("NewMemoryLayer","New Memory Layer..."), self.iface.mainWindow())
-        self.action2 = QAction(QIcon(":/plugins/newmemorylayer/layer-memory-create.png"), QCoreApplication.translate("NewMemoryLayer","New Memory Layer"), self.iface.mainWindow())
+        self.action = QAction(
+            QIcon(":/plugins/newmemorylayer/layer-memory-create.png"),
+            QCoreApplication.translate("NewMemoryLayer", "New Memory Layer..."),
+            self.iface.mainWindow(),
+        )
+        self.action2 = QAction(
+            QIcon(":/plugins/newmemorylayer/layer-memory-create.png"),
+            QCoreApplication.translate("NewMemoryLayer", "New Memory Layer"),
+            self.iface.mainWindow(),
+        )
         self.iface.registerMainWindowAction(self.action, "Ctrl+M")
-        QObject.connect(self.action, SIGNAL("triggered()"), self.run)
-        QObject.connect(self.action2, SIGNAL("triggered()"), self.run)
+        self.action.triggered.connect(self.run)
+        self.action2.triggered.connect(self.run)
         try:
             self.iface.newLayerMenu().addAction(self.action)  # API >= 1.9
         except:
@@ -57,29 +65,25 @@ class NewMemoryLayer:
         except:
             self.iface.addToolBarIcon(self.action2)
 
-
     def unload(self):
-        QObject.disconnect(self.action, SIGNAL("triggered()"), self.run)
-        QObject.disconnect(self.action2, SIGNAL("triggered()"), self.run)
+        self.action.triggered.disconnect(self.run)
+        self.action2.triggered.disconnect(self.run)
         self.iface.unregisterMainWindowAction(self.action)
         try:
             self.iface.newLayerMenu().removeAction(self.action)  # API >= 1.9
         except:
-            self.iface.removePluginMenu("New Memory Layer",self.action)
+            self.iface.removePluginMenu("New Memory Layer", self.action)
         try:
             self.iface.layerToolBar().removeAction(self.action2)  # API >= 1.8
         except:
             self.iface.removeToolBarIcon(self.action2)
-
 
     def run(self):
         dlg = NewMemoryLayerDialog()
         dlg.show()
         result = dlg.exec_()
         if result == 1:
-            geomType = dlg.geomType + '?crs=proj4:' + QgsProject.instance().readEntry("SpatialRefSys","/ProjectCRSProj4String")[0] #dodana linia
-            memLay = QgsVectorLayer(geomType, dlg.ui.leName.text(), 'memory') #zmieniona linia
-            if hasattr( QgsMapLayerRegistry.instance(), "addMapLayers" ):
-                QgsMapLayerRegistry.instance().addMapLayers([memLay])  # API >= 1.9
-            else:
-                QgsMapLayerRegistry.instance().addMapLayer(memLay)
+            geomType = f"{dlg.geomType}?crs={QgsProject.instance().crs().authid()}"
+
+            memLay = QgsVectorLayer(geomType, dlg.ui.leName.text(), "memory")
+            QgsProject().instance().addMapLayer(memLay)
