@@ -22,8 +22,9 @@ about[pl]=Wtyczka tworzy w pamięci nową warstwę w dwóch prostych kliknięcia
       znajduje się na pasku narzędzi Warstwa oraz w menu Warstwa -> Utwórz nową
       warstwę. Można także użyć skrótu klawiszowego (domyślnie Ctrl-M).
 
-version=0.4.3
-qgisMinimumVersion=2.0
+version=0.5.0
+qgisMinimumVersion=3.22
+qgisMaximumVersion=3.99
 
 # changelog=
 

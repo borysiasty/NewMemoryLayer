@@ -20,28 +20,29 @@
  ***************************************************************************/
 """
 
-from PyQt4 import QtCore, QtGui
-from ui_newmemorylayer import Ui_NewMemoryLayer
+from qgis.PyQt import QtWidgets
+from .ui_newmemorylayer import Ui_NewMemoryLayer
 
-class NewMemoryLayerDialog(QtGui.QDialog):
+
+class NewMemoryLayerDialog(QtWidgets.QDialog):
     def __init__(self):
-        QtGui.QDialog.__init__(self)
+        QtWidgets.QDialog.__init__(self)
         # Set up the user interface from Designer.
         self.ui = Ui_NewMemoryLayer()
         self.ui.setupUi(self)
         self.geomType = None
-        self.connect(self.ui.butPoint, QtCore.SIGNAL("released()"), self.runPoint)
-        self.connect(self.ui.butLine, QtCore.SIGNAL("released()"), self.runLine)
-        self.connect(self.ui.butPoly, QtCore.SIGNAL("released()"), self.runPoly)
+        self.ui.butPoint.released.connect(self.runPoint)
+        self.ui.butLine.released.connect(self.runLine)
+        self.ui.butPoly.released.connect(self.runPoly)
 
     def runPoint(self):
-        self.geomType = 'Point'
+        self.geomType = "Point"
         self.accept()
 
     def runLine(self):
-        self.geomType = 'LineString'
+        self.geomType = "LineString"
         self.accept()
 
     def runPoly(self):
-        self.geomType = 'Polygon'
+        self.geomType = "Polygon"
         self.accept()

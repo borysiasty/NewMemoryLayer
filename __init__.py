@@ -26,6 +26,8 @@
 
 """
 
+
 def classFactory(iface):
-    from newmemorylayer import NewMemoryLayer
+    from .newmemorylayer import NewMemoryLayer
+
     return NewMemoryLayer(iface)
