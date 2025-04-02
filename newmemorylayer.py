@@ -39,44 +39,31 @@ class NewMemoryLayer:
         if QFileInfo(self.localePath).exists():
             self.translator = QTranslator()
             self.translator.load(self.localePath)
-            if qVersion() > "4.3.3":
-                QCoreApplication.installTranslator(self.translator)
+            QCoreApplication.installTranslator(self.translator)
 
     def initGui(self):
         self.action = QAction(
-            QIcon(":/plugins/newmemorylayer/layer-memory-create.png"),
+            QIcon(os.path.join(os.path.dirname(__file__), "layer-memory-create.png")),
             QCoreApplication.translate("NewMemoryLayer", "New Memory Layer..."),
             self.iface.mainWindow(),
         )
         self.action2 = QAction(
-            QIcon(":/plugins/newmemorylayer/layer-memory-create.png"),
+            QIcon(os.path.join(os.path.dirname(__file__), "layer-memory-create.png")),
             QCoreApplication.translate("NewMemoryLayer", "New Memory Layer"),
             self.iface.mainWindow(),
         )
         self.iface.registerMainWindowAction(self.action, "Ctrl+M")
         self.action.triggered.connect(self.run)
         self.action2.triggered.connect(self.run)
-        try:
-            self.iface.newLayerMenu().addAction(self.action)  # API >= 1.9
-        except:
-            self.iface.addPluginToMenu("New Memory Layer", self.action)
-        try:
-            self.iface.layerToolBar().addAction(self.action2)  # API >= 1.8
-        except:
-            self.iface.addToolBarIcon(self.action2)
+        self.iface.newLayerMenu().addAction(self.action)
+        self.iface.layerToolBar().addAction(self.action2)
 
     def unload(self):
         self.action.triggered.disconnect(self.run)
         self.action2.triggered.disconnect(self.run)
         self.iface.unregisterMainWindowAction(self.action)
-        try:
-            self.iface.newLayerMenu().removeAction(self.action)  # API >= 1.9
-        except:
-            self.iface.removePluginMenu("New Memory Layer", self.action)
-        try:
-            self.iface.layerToolBar().removeAction(self.action2)  # API >= 1.8
-        except:
-            self.iface.removeToolBarIcon(self.action2)
+        self.iface.newLayerMenu().removeAction(self.action)
+        self.iface.layerToolBar().removeAction(self.action2)
 
     def run(self):
         dlg = NewMemoryLayerDialog()
@@ -85,5 +72,5 @@ class NewMemoryLayer:
         if result == 1:
             geomType = f"{dlg.geomType}?crs={QgsProject.instance().crs().authid()}"
 
-            memLay = QgsVectorLayer(geomType, dlg.ui.leName.text(), "memory")
+            memLay = QgsVectorLayer(geomType, dlg.leName.text(), "memory")
             QgsProject().instance().addMapLayer(memLay)

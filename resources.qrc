@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/plugins/newmemorylayer" >
-        <file>layer-memory-create.png</file>
-    </qresource>
-</RCC>

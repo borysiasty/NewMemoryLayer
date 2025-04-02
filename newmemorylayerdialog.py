@@ -20,20 +20,22 @@
  ***************************************************************************/
 """
 
+import os
+from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
-from .ui_newmemorylayer import Ui_NewMemoryLayer
 
 
-class NewMemoryLayerDialog(QtWidgets.QDialog):
+FORM_CLASS = uic.loadUiType(os.path.join(os.path.dirname(__file__), "ui_newmemorylayer.ui"))[0]
+
+class NewMemoryLayerDialog(QtWidgets.QDialog, FORM_CLASS):
     def __init__(self):
         QtWidgets.QDialog.__init__(self)
         # Set up the user interface from Designer.
-        self.ui = Ui_NewMemoryLayer()
-        self.ui.setupUi(self)
+        self.setupUi(self)
         self.geomType = None
-        self.ui.butPoint.released.connect(self.runPoint)
-        self.ui.butLine.released.connect(self.runLine)
-        self.ui.butPoly.released.connect(self.runPoly)
+        self.butPoint.released.connect(self.runPoint)
+        self.butLine.released.connect(self.runLine)
+        self.butPoly.released.connect(self.runPoly)
 
     def runPoint(self):
         self.geomType = "Point"
