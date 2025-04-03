@@ -41,16 +41,15 @@ class NewMemoryLayerDialog(QtWidgets.QDialog, FORM_CLASS):
         self.setupUi(self)
 
         geom_types = [
-            QgsWkbTypes.Type.NoGeometry,
             QgsWkbTypes.Type.Point,
             QgsWkbTypes.Type.LineString,
-            QgsWkbTypes.Type.CompoundCurve,
             QgsWkbTypes.Type.Polygon,
-            QgsWkbTypes.Type.CurvePolygon,
             QgsWkbTypes.Type.MultiPoint,
             QgsWkbTypes.Type.MultiLineString,
-            QgsWkbTypes.Type.MultiCurve,
             QgsWkbTypes.Type.MultiPolygon,
+            QgsWkbTypes.Type.MultiCurve,
+            QgsWkbTypes.Type.CompoundCurve,
+            QgsWkbTypes.Type.CurvePolygon,
             QgsWkbTypes.Type.MultiSurface,
         ]
 
