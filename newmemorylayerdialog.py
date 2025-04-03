@@ -24,27 +24,48 @@ import os
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 
+from qgis.core import QgsWkbTypes, QgsIconUtils, QgsVectorLayer, QgsProject
 
-FORM_CLASS = uic.loadUiType(os.path.join(os.path.dirname(__file__), "ui_newmemorylayer.ui"))[0]
+
+FORM_CLASS = uic.loadUiType(
+    os.path.join(os.path.dirname(__file__), "ui_newmemorylayer.ui")
+)[0]
+
 
 class NewMemoryLayerDialog(QtWidgets.QDialog, FORM_CLASS):
     def __init__(self):
         QtWidgets.QDialog.__init__(self)
         # Set up the user interface from Designer.
         self.setupUi(self)
-        self.geomType = None
-        self.butPoint.released.connect(self.runPoint)
-        self.butLine.released.connect(self.runLine)
-        self.butPoly.released.connect(self.runPoly)
 
-    def runPoint(self):
-        self.geomType = "Point"
-        self.accept()
+        geom_types = [
+            QgsWkbTypes.Type.NoGeometry,
+            QgsWkbTypes.Type.Point,
+            QgsWkbTypes.Type.LineString,
+            QgsWkbTypes.Type.CompoundCurve,
+            QgsWkbTypes.Type.Polygon,
+            QgsWkbTypes.Type.CurvePolygon,
+            QgsWkbTypes.Type.MultiPoint,
+            QgsWkbTypes.Type.MultiLineString,
+            QgsWkbTypes.Type.MultiCurve,
+            QgsWkbTypes.Type.MultiPolygon,
+            QgsWkbTypes.Type.MultiSurface,
+        ]
 
-    def runLine(self):
-        self.geomType = "LineString"
-        self.accept()
+        nb_col = 3
+        for i, geom_type in enumerate(geom_types):
+            row = i // nb_col
+            col = i % nb_col
+            button = QtWidgets.QPushButton(
+                QgsIconUtils.iconForWkbType(geom_type),
+                QgsWkbTypes.translatedDisplayString(geom_type),
+                self,
+            )
+            button.clicked.connect(lambda clicked, t=geom_type: self.add_layer(t))
+            self.lyt_geometry_types.addWidget(button, row, col)
 
-    def runPoly(self):
-        self.geomType = "Polygon"
-        self.accept()
+    def add_layer(self, geom_type: QgsWkbTypes.Type):
+        layer_wkb_str = QgsWkbTypes.displayString(geom_type)
+        geomType = f"{layer_wkb_str}?crs={QgsProject.instance().crs().authid()}"
+        memLay = QgsVectorLayer(geomType, self.leName.text(), "memory")
+        QgsProject().instance().addMapLayer(memLay)

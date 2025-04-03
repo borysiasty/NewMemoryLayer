@@ -32,6 +32,7 @@ class NewMemoryLayer:
     def __init__(self, iface):
         self.iface = iface
         self.action = None
+        self.dlg = None
         # i18n
         pluginPath = QFileInfo(os.path.realpath(__file__)).path()
         localeName = QLocale.system().name()
@@ -61,11 +62,7 @@ class NewMemoryLayer:
             self.iface.newLayerMenu().removeAction(self.action)
 
     def run(self):
-        dlg = NewMemoryLayerDialog()
-        dlg.show()
-        result = dlg.exec()
-        if result == 1:
-            geomType = f"{dlg.geomType}?crs={QgsProject.instance().crs().authid()}"
-
-            memLay = QgsVectorLayer(geomType, dlg.leName.text(), "memory")
-            QgsProject().instance().addMapLayer(memLay)
+        if not self.dlg:
+            self.dlg = NewMemoryLayerDialog()
+        self.dlg.show()
+        self.dlg.activateWindow()
