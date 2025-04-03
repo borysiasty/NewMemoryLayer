@@ -20,12 +20,14 @@
  ***************************************************************************/
 """
 
+# standard library
 import os
+
+# PyQGIS
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
-
 from qgis.core import QgsWkbTypes, QgsIconUtils, QgsVectorLayer, QgsProject
-
+from qgis.utils import iface
 
 FORM_CLASS = uic.loadUiType(
     os.path.join(os.path.dirname(__file__), "ui_newmemorylayer.ui")
@@ -69,3 +71,8 @@ class NewMemoryLayerDialog(QtWidgets.QDialog, FORM_CLASS):
         geomType = f"{layer_wkb_str}?crs={QgsProject.instance().crs().authid()}"
         memLay = QgsVectorLayer(geomType, self.leName.text(), "memory")
         QgsProject().instance().addMapLayer(memLay)
+
+        if self.chk_start_edition.isChecked():
+            memLay.startEditing()
+            iface.layerTreeView().setCurrentLayer(memLay)
+            iface.actionAddFeature().trigger()
