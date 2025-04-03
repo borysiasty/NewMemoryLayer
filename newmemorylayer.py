@@ -31,6 +31,7 @@ class NewMemoryLayer:
 
     def __init__(self, iface):
         self.iface = iface
+        self.action = None
         # i18n
         pluginPath = QFileInfo(os.path.realpath(__file__)).path()
         localeName = QLocale.system().name()
@@ -47,28 +48,22 @@ class NewMemoryLayer:
             QCoreApplication.translate("NewMemoryLayer", "New Memory Layer..."),
             self.iface.mainWindow(),
         )
-        self.action2 = QAction(
-            QIcon(os.path.join(os.path.dirname(__file__), "layer-memory-create.png")),
-            QCoreApplication.translate("NewMemoryLayer", "New Memory Layer"),
-            self.iface.mainWindow(),
-        )
-        self.iface.registerMainWindowAction(self.action, "Ctrl+M")
+        self.action.setShortcut("Ctrl+W")
+        self.iface.registerMainWindowAction(self.action, "Ctrl+W")
         self.action.triggered.connect(self.run)
-        self.action2.triggered.connect(self.run)
         self.iface.newLayerMenu().addAction(self.action)
-        self.iface.layerToolBar().addAction(self.action2)
+        self.iface.layerToolBar().addAction(self.action)
 
     def unload(self):
-        self.action.triggered.disconnect(self.run)
-        self.action2.triggered.disconnect(self.run)
-        self.iface.unregisterMainWindowAction(self.action)
-        self.iface.newLayerMenu().removeAction(self.action)
-        self.iface.layerToolBar().removeAction(self.action2)
+        if self.action:
+            self.action.triggered.disconnect(self.run)
+            self.iface.unregisterMainWindowAction(self.action)
+            self.iface.newLayerMenu().removeAction(self.action)
 
     def run(self):
         dlg = NewMemoryLayerDialog()
         dlg.show()
-        result = dlg.exec_()
+        result = dlg.exec()
         if result == 1:
             geomType = f"{dlg.geomType}?crs={QgsProject.instance().crs().authid()}"
 
