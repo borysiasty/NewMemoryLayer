@@ -60,6 +60,7 @@ class NewMemoryLayer:
             self.action.triggered.disconnect(self.run)
             self.iface.unregisterMainWindowAction(self.action)
             self.iface.newLayerMenu().removeAction(self.action)
+            self.iface.layerToolBar().removeAction(self.action)
 
     def run(self):
         if not self.dlg:
