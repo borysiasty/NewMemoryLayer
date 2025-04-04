@@ -41,6 +41,7 @@ experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version
 deprecated=False
+supportQt6=True
 
 # Author contact information
 author=Borys Jurgiel
