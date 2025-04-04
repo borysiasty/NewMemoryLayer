@@ -1,3 +1,11 @@
+0.5.1
+- Qt6 compatible
+- add support for other geometry types
+- add option for layer edition start
+- keyboard shortcut is now "CTRL+W"
+- dialog is not closed after layer creation
+Patch by jmkerloch
+
 0.5
 Version for QGIS 3.x. Patch by jmkerloch
 
