@@ -65,13 +65,21 @@ class NewMemoryLayerDialog(QtWidgets.QDialog, FORM_CLASS):
             button.clicked.connect(lambda clicked, t=geom_type: self.add_layer(t))
             self.lyt_geometry_types.addWidget(button, row, col)
 
-    def add_layer(self, geom_type: QgsWkbTypes.Type):
+    def add_layer(self, geom_type):
+        self.generic_add_layer(
+            geom_type, self.leName.text(), self.chk_start_edition.isChecked()
+        )
+
+    @classmethod
+    def generic_add_layer(
+        self, geom_type: QgsWkbTypes.Type, name: str = None, edit: bool = False
+    ):
         layer_wkb_str = QgsWkbTypes.displayString(geom_type)
         geomType = f"{layer_wkb_str}?crs={QgsProject.instance().crs().authid()}"
-        memLay = QgsVectorLayer(geomType, self.leName.text(), "memory")
+        memLay = QgsVectorLayer(geomType, name, "memory")
         QgsProject().instance().addMapLayer(memLay)
 
-        if self.chk_start_edition.isChecked():
+        if edit:
             memLay.startEditing()
             iface.layerTreeView().setCurrentLayer(memLay)
             iface.actionAddFeature().trigger()
