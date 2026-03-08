@@ -1,3 +1,6 @@
+0.5.2
+Fix QGIS4 compatibility
+
 0.5.1
 - Qt6 compatible
 - add support for other geometry types
