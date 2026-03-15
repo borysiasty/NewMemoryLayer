@@ -19,12 +19,11 @@
  *                                                                         *
  ***************************************************************************/
 """
-from qgis.PyQt.QtCore import *
-from qgis.PyQt.QtGui import *
-from qgis.core import *
 
-from .newmemorylayerdialog import NewMemoryLayerDialog
 import os
+from qgis.PyQt.QtCore import QCoreApplication, QFileInfo, QLocale, QTranslator
+from qgis.PyQt.QtGui import QAction, QIcon
+from .newmemorylayerdialog import NewMemoryLayerDialog
 
 
 class NewMemoryLayer:
